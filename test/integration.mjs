@@ -4,10 +4,12 @@
  *   2. apply() 真的被调用、四个工具真的注册进 tools 注册表
  *
  * 这是对「插件装上了但工具没出现」这类静默失败的专项检验。
+ *
+ * 需要宿主依赖（@deepseek-ai/cordis、dsh-tools 等）。若在独立目录运行，
+ * 先让上层 Node 能解析到 DSH 的 node_modules，或在 DSH profile 目录下运行。
  */
 
-import { Context } from '/usr/local/lib/node_modules/@deepseek-ai/cordis/lib/index.js'
-import { Service } from '/usr/local/lib/node_modules/@deepseek-ai/cordis/lib/index.js'
+import { Context, Service } from '@deepseek-ai/cordis'
 
 const registered = []
 

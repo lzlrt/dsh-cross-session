@@ -24,12 +24,17 @@
     "lib",
     "cordis.patch.yml",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "test"
   ],
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "scripts": {
+    "test": "node test/run.mjs",
+    "test:integration": "node test/integration.mjs"
   },
   "engines": {
     "node": ">=18"

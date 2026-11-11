@@ -19,6 +19,21 @@ dsh plugin --profile web add @lzlrt/dsh-cross-session
 
 装完重启 DSH。bundle patch 会自动把 `cross-session` 这一行插进组合。
 
+## 测试
+
+```bash
+npm test                 # 31 项离宿主逻辑测试，不依赖 DSH
+npm run test:integration # 宿主级验证：需在 DSH profile 目录下运行
+```
+
+`test/run.mjs` 用一个最小假宿主覆盖四个工具的全部逻辑（别名派生、标识解析、
+投递路径、归档过滤、工作区过滤、UTF-8 截断边界），不需要真实 DSH。
+
+`test/integration.mjs` 用最小 cordis 应用加载插件，验证 `inject` 声明的服务名
+与真实宿主一致、`apply()` 真被调用、四个工具真注册进 `tools` 注册表
+——专治「插件装上了但工具没出现」这类静默失败。它需要宿主依赖，
+须在 profile 目录内运行：`cd ~/.dsh/profiles/web && node node_modules/@lzlrt/dsh-cross-session/test/integration.mjs`
+
 ## 为什么只有四个工具
 
 没有审批桥，没有危险命令判定，没有权限夹紧——那些属于「安全边界」，不属于「让人和会话之间说话」。本插件只调用宿主自己的 `sessionController`：
