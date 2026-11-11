@@ -1,6 +1,6 @@
 {
   "name": "@lzlrt/dsh-cross-session",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "跨会话协同 for DeepSeek Harness 0.2.x: 会话之间互发消息、交接任务、回信、互看进度。四个工具，无审批桥。",
   "keywords": [
     "dsh",
@@ -35,6 +35,14 @@
   "scripts": {
     "test": "node test/run.mjs",
     "test:integration": "node test/integration.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.2.1-rc.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-tools": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=18"
