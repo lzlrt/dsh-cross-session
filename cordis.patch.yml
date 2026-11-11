@@ -1,0 +1,13 @@
+# 把 dsh-cross-session 挂到 profile 的宿主组合里。
+# name 是包名，id 是组合条目标识（对应 lib/index.js 导出的 name）。
+#
+# inject 声明必需服务：tools / sessionController / sessionQuery。
+# 任一缺失时 Cordis 会让插件等待，不会注册半个工具集 —— 这是有意的：
+# 没有 sessionController 就没法发消息，而这插件的全部意义就是发消息。
+- insert:
+    - id: cross-session
+      name: '@lzlrt/dsh-cross-session'
+      inject:
+        - tools
+        - sessionController
+        - sessionQuery

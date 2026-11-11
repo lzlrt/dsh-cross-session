@@ -1,0 +1,45 @@
+{
+  "name": "@lzlrt/dsh-cross-session",
+  "version": "1.0.0",
+  "description": "跨会话协同 for DeepSeek Harness 0.2.x: 会话之间互发消息、交接任务、回信、互看进度。四个工具，无审批桥。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek",
+    "session",
+    "multi-agent",
+    "cross-session",
+    "collaboration"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lzlrt/dsh-cross-session.git"
+  },
+  "homepage": "https://github.com/lzlrt/dsh-cross-session#readme",
+  "bugs": {
+    "url": "https://github.com/lzlrt/dsh-cross-session/issues"
+  }
+}
