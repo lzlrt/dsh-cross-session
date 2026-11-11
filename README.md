@@ -21,18 +21,28 @@ dsh plugin --profile web add @lzlrt/dsh-cross-session
 
 ## 测试
 
+**两个测试都依赖宿主包 `@deepseek-ai/dsh-tools`**（插件本身是宿主 bundle，
+`lib/index.js` 要从宿主取 `defineTool`）。所以必须在**能解析到 DSH node_modules
+的位置**运行，通常是 profile 目录：
+
 ```bash
-npm test                 # 31 项离宿主逻辑测试，不依赖 DSH
-npm run test:integration # 宿主级验证：需在 DSH profile 目录下运行
+cd ~/.dsh/profiles/web
+node node_modules/@lzlrt/dsh-cross-session/test/run.mjs           # 31 项逻辑测试
+node node_modules/@lzlrt/dsh-cross-session/test/integration.mjs   # 宿主级集成验证
 ```
 
-`test/run.mjs` 用一个最小假宿主覆盖四个工具的全部逻辑（别名派生、标识解析、
-投递路径、归档过滤、工作区过滤、UTF-8 截断边界），不需要真实 DSH。
+- `test/run.mjs` —— 用最小假宿主覆盖四个工具全部逻辑（别名派生、标识解析、
+  投递路径、归档过滤、工作区过滤、UTF-8 截断边界）。不连真实 DSH，但仍需
+  宿主包存在才能 `import` 插件本体。
+- `test/integration.mjs` —— 用最小 cordis 应用加载插件，验证 `inject` 声明的
+  服务名与真实宿主一致、`apply()` 真被调用、四工具真注册进 `tools` 注册表。
+  专治「插件装上了但工具没出现」这类静默失败。
 
-`test/integration.mjs` 用最小 cordis 应用加载插件，验证 `inject` 声明的服务名
-与真实宿主一致、`apply()` 真被调用、四个工具真注册进 `tools` 注册表
-——专治「插件装上了但工具没出现」这类静默失败。它需要宿主依赖，
-须在 profile 目录内运行：`cd ~/.dsh/profiles/web && node node_modules/@lzlrt/dsh-cross-session/test/integration.mjs`
+在 DSH 之外单独 clone 后想跑测试，先装宿主依赖：
+
+```bash
+npm i @deepseek-ai/dsh-tools
+```
 
 ## 为什么只有四个工具
 
